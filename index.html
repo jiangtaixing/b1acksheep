@@ -1,161 +1,19 @@
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>B1ACKSH33P to BLACKSHEEP</title>
-  <style>
-    @font-face {
-      font-family: "Menlo";
-      src: local("Menlo"), local("Menlo-Regular");
-    }
-
-    * {
-      margin: 0; 
-      padding: 0; 
-      box-sizing: border-box;
-    }
-    body {
-      background: #111;
-      color: #fff;
-      font-family: "Menlo", monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .container {
-      font-size: 2rem;
-      letter-spacing: 0.2rem;
-      user-select: none;
-      cursor: default;
-      position: relative;
-    }
-    @keyframes glitch {
-      0%   { transform: translate(0);         }
-      20%  { transform: translate(-2px, 2px); }
-      40%  { transform: translate(2px, -2px); }
-      60%  { transform: translate(-1px, 1px); }
-      80%  { transform: translate(1px, -1px); }
-      100% { transform: translate(0);         }
-    }
-    span.glitch {
-      animation: glitch 0.2s infinite;
-      display: inline-block;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Iframe Embed</title>
+<style>
+html, body { height: 100%; margin: 0; }
+iframe { width: 100%; height: 100%; border: 0; display: block; }
+</style>
 </head>
 <body>
-
-<div class="container" id="textContainer">
-  <span>B</span>
-  <span>1</span>
-  <span>A</span>
-  <span>C</span>
-  <span>K</span>
-  <span>S</span>
-  <span>H</span>
-  <span>3</span>
-  <span>3</span>
-  <span>P</span>
-</div>
-
-<script>
-  const originalText = "B1ACKSH33P";
-  const targetText   = "BLACKSHEEP";
-  const randomChars  = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  const spans        = document.querySelectorAll("#textContainer span");
-  const totalLetters = spans.length;
-  const glitchTimes  = 5;
-  const glitchDelay  = 100;
-  let completedLetters = 0;
-
-  function transformLetter(index) {
-    let count = 0;
-    const interval = setInterval(() => {
-      if (count < glitchTimes) {
-        spans[index].textContent = randomChars.charAt(
-          Math.floor(Math.random() * randomChars.length)
-        );
-        spans[index].classList.add("glitch");
-        count++;
-      } else {
-        spans[index].textContent = targetText[index];
-        spans[index].classList.remove("glitch");
-        clearInterval(interval);
-        completedLetters++;
-        if (completedLetters === totalLetters) {
-          doSecondStageAnimation();
-        }
-      }
-    }, glitchDelay);
-  }
-
-  function doSecondStageAnimation() {
-    glitchToOne(1, "1");
-    glitchToTempThenRestore(7, "3", "E");
-    glitchToTempThenRestore(8, "3", "E");
-  }
-
-  function glitchToOne(index, finalChar) {
-    let count = 0;
-    const times = 4;
-    const delay = 80;
-    const timer = setInterval(() => {
-      if (count < times) {
-        spans[index].textContent = randomChars.charAt(
-          Math.floor(Math.random() * randomChars.length)
-        );
-        spans[index].classList.add("glitch");
-        count++;
-      } else {
-        spans[index].textContent = finalChar;
-        spans[index].classList.remove("glitch");
-        clearInterval(timer);
-      }
-    }, delay);
-  }
-
-  function glitchToTempThenRestore(index, tempChar, restoreChar) {
-    let phase = 0;
-    let count = 0;
-    const times = 4;
-    const delay = 80;
-    const timer = setInterval(() => {
-      if (phase === 0) {
-        if (count < times) {
-          spans[index].textContent = randomChars.charAt(
-            Math.floor(Math.random() * randomChars.length)
-          );
-          spans[index].classList.add("glitch");
-          count++;
-        } else {
-          spans[index].textContent = tempChar;
-          spans[index].classList.remove("glitch");
-          phase = 1;
-          count = 0;
-        }
-      } else {
-        if (count < times) {
-          spans[index].textContent = randomChars.charAt(
-            Math.floor(Math.random() * randomChars.length)
-          );
-          spans[index].classList.add("glitch");
-          count++;
-        } else {
-          spans[index].textContent = restoreChar;
-          spans[index].classList.remove("glitch");
-          clearInterval(timer);
-        }
-      }
-    }, delay);
-  }
-
-  setTimeout(() => {
-    for (let i = 0; i < totalLetters; i++) {
-      setTimeout(() => transformLetter(i), i * 300);
-    }
-  }, 1000);
-</script>
-
+<iframe
+src="https://sweet-cake-20cd.jiangtaixing.workers.dev/"
+loading="lazy"
+allow="fullscreen"
+referrerpolicy="no-referrer-when-downgrade">
+</iframe>
 </body>
 </html>
